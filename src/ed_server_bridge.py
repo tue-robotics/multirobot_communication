@@ -23,6 +23,7 @@ class SyncServer():
     def __init__(self, ip, port):
         self._server = Server((ip, port), allow_none=True)
         self._server.register_function(self.get, 'get')
+        self._server.register_function(lambda: 'OK', 'ping')
 
         self._ros_service_proxy = rospy.ServiceProxy('ed/query', Query)
 
