@@ -26,7 +26,7 @@ class SyncServer():
 
         self._ros_service_proxy = rospy.ServiceProxy('ed/query', Query)
 
-        self._sp  = ServerProxy("http://%s:%d"%(ip,port))
+        self._sp  = xmlrpclib.ServerProxy("http://%s:%d"%(ip,port))
         self._stop = False
 
     # RPC METHOD
