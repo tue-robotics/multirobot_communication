@@ -76,6 +76,6 @@ if __name__ == '__main__':
             server.serve()
 
         else:
-            rospy.logerr("Sync server : no server ip set; please specify the local 'ip' parameter")
+            rospy.logerr("Sync server : no server ip or port set; please specify the local 'ip' and 'port' parameter")
     except rospy.ROSInterruptException:
         pass

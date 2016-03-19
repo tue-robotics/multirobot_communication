@@ -31,13 +31,13 @@ class SyncClient():
 if __name__ == '__main__':
     try:
         rospy.init_node('sync_client')
-        if rospy.has_param('~ip'):
+        if rospy.has_param('~ip') and rospy.has_param('~port'):
             ip = rospy.get_param('~ip')
             port = rospy.get_param('~port')
             client = SyncClient(ip, port)
             rospy.loginfo("Sync client that pushes changes initialized [connecting to server on ip %s]"%ip)
             rospy.spin()
         else:
-            rospy.logerr("Sync client: no server ip set; please specify the local 'ip' parameter")
+            rospy.logerr("Sync client: no server ip or port set; please specify the local 'ip' and 'port' parameter")
     except rospy.ROSInterruptException:
         pass
