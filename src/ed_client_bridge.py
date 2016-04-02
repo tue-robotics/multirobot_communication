@@ -35,7 +35,7 @@ if __name__ == '__main__':
             ip = rospy.get_param('~ip')
             port = rospy.get_param('~port')
             client = SyncClient(ip, port)
-            rospy.loginfo("Sync client that pushes changes initialized [connecting to server on ip %s]"%ip)
+            rospy.loginfo("Sync client that tunnels [connecting to server on ip %s]"%ip)
             rospy.spin()
         else:
             rospy.logerr("Sync client: no server ip or port set; please specify the local 'ip' and 'port' parameter")
