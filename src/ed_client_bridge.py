@@ -20,11 +20,16 @@ class SyncClient():
         rospy.loginfo("Request: [%s]"%cyan(req))
 
         # RPC request to server
-        result = self.sp.get(req.ids, req.properties, req.since_revision)
+        try:
+            result = self.sp.get(req.ids, req.properties, req.since_revision)
+        except Exception as e:
+            raise Exception("XMLRPC Call failed")
+
         if not result:
             rospy.loginfo("Sync result: [%s]"%cyan("None"))
         else:
             rospy.loginfo("Sync client: synced data of size [%2f kb] with revision [%d]"%(len(str(result['human_readable'])) / 1000.0,result['new_revision']))
+
         return result
 
 # Main function
