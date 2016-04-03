@@ -21,13 +21,13 @@ def error(error):
 
 class TriggerServer():
 
-    def __init__(self, ip, port):
+    def __init__(self, ip, port, robot_name):
         self._server = Server((ip, port), allow_none=True)
         self._server.register_function(self.get, 'get')
         self._server.register_function(lambda: 'OK', 'ping')
         self._sp  = ServerProxy("http://%s:%d"%(ip,port))
 
-        self._ros_publisher = rospy.Publisher('trigger', String, queue_size=10)
+        self._ros_publisher = rospy.Publisher('/%s/trigger'%robot_name, String, queue_size=10)
 
         self._stop = False
 
@@ -53,7 +53,8 @@ if __name__ == '__main__':
         if rospy.has_param('~ip'):
             ip = rospy.get_param('~ip')
             port = rospy.get_param('~port')
-            server = TriggerServer(ip, port)
+            robot_name = rospy.get_param('~robot_name')
+            server = TriggerServer(ip, port, robot_name)
             print "Trigger server active at %s:%d"%(ip,port)
             server.serve()
 
